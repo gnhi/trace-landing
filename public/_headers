@@ -1,0 +1,19 @@
+# Cloudflare cộng dồn header trùng tên giữa các quy tắc chứ không ghi đè.
+# Vì vậy Cache-Control chỉ được đặt ở đúng một nơi, tránh nối thành chuỗi
+# hai giá trị mâu thuẫn.
+
+# Header bảo mật cho mọi đường dẫn. Không đặt Cache-Control ở đây.
+# HTML đã được Workers static assets trả về max-age=0, must-revalidate
+# theo mặc định, kể cả với URL không đuôi như /san-pham.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+
+# Ảnh, CSS, JS: cache dài 7 ngày.
+# CSS và JS được gắn ?v=<mã băm nội dung> bởi scripts/stamp.py, nên sửa nội
+# dung là đổi đường dẫn và trình duyệt tải lại ngay. Bỏ bước stamp thì người
+# đã vào site sẽ giữ bản CSS cũ tới hết 7 ngày.
+/assets/*
+  Cache-Control: public, max-age=604800
