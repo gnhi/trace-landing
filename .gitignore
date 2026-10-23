@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+._*
+
+# wrangler
+.wrangler/
+.dev.vars
+.env
+.env.*
+
+# node, nếu sau này có thêm
+node_modules/
+npm-debug.log*
+
+# tệp tạm khi kiểm tra bố cục
+/tmp/
+*.tmp
